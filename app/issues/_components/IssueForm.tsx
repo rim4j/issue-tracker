@@ -10,7 +10,7 @@ import axios from 'axios';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { createIssueSchema } from '@/app/validationSchemas';
+import { issueSchema } from '@/app/validationSchemas';
 import { z } from 'zod';
 import ErrorMessage from '@/app/components/ErrorMessage';
 import Spinner from '@/app/components/Spinner';
@@ -20,7 +20,7 @@ import { Issue } from '@prisma/client';
 //   ssr: false,
 // });
 
-type IssueFormData = z.infer<typeof createIssueSchema>;
+type IssueFormData = z.infer<typeof issueSchema>;
 
 interface Props {
   issue?: Issue;
@@ -34,16 +34,19 @@ const IssueForm = ({ issue }: Props) => {
     handleSubmit,
     formState: { errors },
   } = useForm<IssueFormData>({
-    resolver: zodResolver(createIssueSchema),
+    resolver: zodResolver(issueSchema),
   });
 
   const [error, setError] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const onSubmit = handleSubmit(async (data) => {
+    console.log(data);
     try {
       setIsSubmitting(true);
-      await axios.post('/api/issues', data);
+      if (issue) await axios.patch(`/api/issues/${issue.id}`, data);
+      else await axios.post('/api/issues', data);
+
       router.push('/issues');
     } catch (error) {
       setIsSubmitting(false);
