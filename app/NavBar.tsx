@@ -6,14 +6,7 @@ import React from 'react';
 import { FaBug } from 'react-icons/fa6';
 import classnames from 'classnames';
 import { usePathname } from 'next/navigation';
-import {
-  Avatar,
-  Box,
-  Container,
-  DropdownMenu,
-  Flex,
-  Text,
-} from '@radix-ui/themes';
+import { Avatar, Container, DropdownMenu, Flex, Text } from '@radix-ui/themes';
 import { Skeleton } from '@/app/components';
 
 const NavBar = () => {
