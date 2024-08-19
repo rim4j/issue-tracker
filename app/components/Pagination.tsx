@@ -29,42 +29,44 @@ const Pagination = ({ itemCount, pageSize, currentPage }: Props) => {
   if (pageCount <= 1) return null;
 
   return (
-    <Flex align='center' gap='2'>
+    <Flex direction='column' align='center' justify='center'>
+      <Flex gap='2'>
+        <Button
+          onClick={() => changePage(1)}
+          color='gray'
+          variant='soft'
+          disabled={currentPage === 1}
+        >
+          <DoubleArrowLeftIcon />
+        </Button>
+        <Button
+          onClick={() => changePage(currentPage - 1)}
+          color='gray'
+          variant='soft'
+          disabled={currentPage === 1}
+        >
+          <ChevronLeftIcon />
+        </Button>
+        <Button
+          onClick={() => changePage(currentPage + 1)}
+          color='gray'
+          variant='soft'
+          disabled={currentPage === pageCount}
+        >
+          <ChevronRightIcon />
+        </Button>
+        <Button
+          onClick={() => changePage(pageCount)}
+          color='gray'
+          variant='soft'
+          disabled={currentPage === pageCount}
+        >
+          <DoubleArrowRightIcon />
+        </Button>
+      </Flex>
       <Text size='2'>
         Page {currentPage} of {pageCount}
       </Text>
-      <Button
-        onClick={() => changePage(1)}
-        color='gray'
-        variant='soft'
-        disabled={currentPage === 1}
-      >
-        <DoubleArrowLeftIcon />
-      </Button>
-      <Button
-        onClick={() => changePage(currentPage - 1)}
-        color='gray'
-        variant='soft'
-        disabled={currentPage === 1}
-      >
-        <ChevronLeftIcon />
-      </Button>
-      <Button
-        onClick={() => changePage(currentPage + 1)}
-        color='gray'
-        variant='soft'
-        disabled={currentPage === pageCount}
-      >
-        <ChevronRightIcon />
-      </Button>
-      <Button
-        onClick={() => changePage(pageCount)}
-        color='gray'
-        variant='soft'
-        disabled={currentPage === pageCount}
-      >
-        <DoubleArrowRightIcon />
-      </Button>
     </Flex>
   );
 };
